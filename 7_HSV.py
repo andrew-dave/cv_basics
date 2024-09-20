@@ -1,3 +1,5 @@
+#Here we segment a cat from its original image using HSV segmentation and overlaying the mask on the original image
+
 import cv2 as cv
 import os
 import numpy as np
@@ -10,9 +12,17 @@ def hsvColorseg():
     imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
     imgHSV = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
-    # Define the HSV range for color segmentation
-    lowerBound = np.array([0, 0, 50])
-    upperBound = np.array([150, 140, 180])
+    # Define the HSV range for color segmentation(for body and ~eyes)
+    lowerBound = np.array([10, 100, 100])
+    upperBound = np.array([25, 255, 255])
+
+    # Segment red regions
+    # lowerBound = np.array([0, 120, 70])
+    # upperBound = np.array([10, 255, 255])
+    
+    # Segment green regions
+    # lowerBound = np.array([35, 100, 100])
+    # upperBound = np.array([85, 255, 255])
 
     # Create mask
     mask = cv.inRange(imgHSV, lowerBound, upperBound)
